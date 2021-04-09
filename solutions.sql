@@ -227,5 +227,28 @@ FROM game LEFT JOIN goal ON matchid = id
 GROUP BY mdate, matchid, team1, team2
 ORDER BY mdate, matchid, team1, team2
   
+--More JOIN operations
+
+SELECT id, title FROM movie WHERE yr=1962
+
+SELECT yr FROM movie WHERE title = 'Citizen Kane'
+
+SELECT id, title, yr FROM movie WHERE title LIKE 'Star Trek%' ORDER BY yr
+
+SELECT id FROM actor WHERE name = 'Glenn Close'
+
+SELECT id FROM movie WHERE title = 'Casablanca'
+
+SELECT DISTINCT name FROM actor JOIN casting ON actorid = id WHERE movieid = 27
+
+SELECT DISTINCT name FROM actor 
+JOIN casting ON actorid = id
+JOIN movie ON movieid = movie.id
+WHERE movie.title = 'Alien'
+
+SELECT DISTINCT title FROM movie
+JOIN casting ON movieid = movie.id
+JOIN actor ON actorid = actor.id
+WHERE actor.name = 'Harrison Ford'
 
 
