@@ -380,3 +380,18 @@ SELECT DISTINCT bstop.name, a.company, a.num FROM
 			   JOIN stops AS astop ON (a.stop = astop.id)
 			   JOIN stops AS bstop ON (b.stop = bstop.id)
 	WHERE astop.name = 'Craiglockhart'
+
+SELECT DISTINCT one.num as FirstBus, one.company as FirstComp, one.name as Transfer, two.num as SecBus, two.company as SecComp
+FROM (SELECT DISTINCT a.num, a.company, yy.name
+     FROM route a join route b on (a.company=b.company and a.num=b.num) 
+                  join stops xx on (xx.id=a.stop) 
+                  join stops yy on (yy.id=b.stop)
+     WHERE xx.name='Craiglockhart' and yy.name<>'Lochend'
+     ) AS one JOIN
+    (SELECT DISTINCT c.num, d.company, mm.name
+     FROM route c join route d on (c.company=d.company and c.num=d.num) 
+                  join stops mm on (mm.id=c.stop) 
+                  join stops nn on (nn.id=d.stop)
+     WHERE mm.name <> 'Craiglockhart' and nn.name='Lochend'
+     ) AS two
+ON (two.name=one.name)
