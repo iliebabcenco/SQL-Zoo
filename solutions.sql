@@ -374,3 +374,9 @@ FROM route a JOIN route b ON
  JOIN stops stopa ON (a.stop=stopa.id)
   JOIN stops stopb ON (b.stop=stopb.id)
 WHERE stopa.name='Craiglockhart' AND stopb.name='Tollcross'
+
+SELECT DISTINCT bstop.name, a.company, a.num FROM
+	route AS a JOIN route AS b ON (a.company = b.company AND a.num = b.num)
+			   JOIN stops AS astop ON (a.stop = astop.id)
+			   JOIN stops AS bstop ON (b.stop = bstop.id)
+	WHERE astop.name = 'Craiglockhart'
