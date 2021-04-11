@@ -276,3 +276,24 @@ WHERE movie.id IN (
     WHERE actorid IN (
       SELECT id FROM actor
       WHERE name='Julie Andrews'))  AND casting.ord = 1
+
+SELECT name AS 'starring roles' FROM actor 
+JOIN casting ON actorid = actor.id
+JOIN movie ON movieid = movie.id
+WHERE ord = 1 GROUP BY name
+HAVING COUNT(movie.title) >= 15
+
+SELECT title, COUNT(name) FROM actor 
+JOIN casting ON actorid = actor.id
+JOIN movie ON movieid = movie.id
+WHERE yr = 1978 GROUP BY title ORDER BY COUNT(name) DESC, title
+
+SELECT name FROM actor
+JOIN casting ON actorid = actor.id
+JOIN movie ON movieid = movie.id
+WHERE title IN (
+SELECT title FROM movie
+JOIN casting ON movieid = movie.id
+JOIN actor ON actorid = actor.id
+WHERE actor.name = 'Art Garfunkel' ) AND name != 'Art Garfunkel' ORDER BY name
+
